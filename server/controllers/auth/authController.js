@@ -51,12 +51,13 @@ const loginUser = async(req,res) => {
         });
     }
 
-    const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);
-    if(!checkPasswordMatch){
-        res.status(200).json({
-            success: true,  
+    const checkPasswordMatch = await bcrypt.compare(password, checkUser.password);    
+
+    if(!checkPasswordMatch){       
+        return res.json({
+            success: false,
             message: "Incorrect password! Please try again"
-        });
+        })
     }
     
     const token = jwt.sign({
