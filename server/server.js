@@ -17,7 +17,7 @@ connectToMongoDB("mongodb+srv://miteshjuikar:MyMongoDB@mycluster.krravcy.mongodb
 
 
 app.use(cors({
-    origin: 'http://localhost:5173/',
+    origin: 'http://localhost:5173',
     methods: [ 'GET', 'POST', 'DELETE', 'PUT'],
     allowedHeaders: [
         'Content-Type',
@@ -29,6 +29,7 @@ app.use(cors({
     credentials: true
 }));
 
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.json());
 
