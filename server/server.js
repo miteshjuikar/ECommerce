@@ -1,14 +1,16 @@
 const express =  require('express');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
+const authRouter = require('./router/auth/authRoutes');
 
 const { connectToMongoDB } = require('./connection');
 
 const app = express();
-const PORT = process.env.PORT || 8100;
+const PORT = process.env.PORT || 5000;
 
 //MongoDB Connection
-connectToMongoDB("mongodb+srv://miteshjuikar:MyMongoDB@mycluster.krravcy.mongodb.net/ecommerce")
+
+connectToMongoDB("mongodb+srv://miteshjuikar:MyMongoDB@mycluster.krravcy.mongodb.net/eShop")
                     .then(console.log("MongoDB connected successfully"))
                     .catch((err)=>console.log(`Error: ${err}`)
                 );
@@ -29,5 +31,8 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use(express.json());
+
+app.use('/api/auth', authRouter);
+
 
 app.listen(PORT, () => console.log(`Server is started on port: ${PORT}`));

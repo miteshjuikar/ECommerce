@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 function AuthLogin() {
 
   const [formData, setFormData] = useState({email: "", password: ""});
-console.log(formData);
 
   function onSubmit(event) {
 

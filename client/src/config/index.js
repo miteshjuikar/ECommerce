@@ -17,11 +17,11 @@ export const loginFormControls = [
 
 export const registrationFormControl = [
     {
-        name: "name",
-        label: "Full Name",
-        placeholder: "Enter your full name",
+        name: "userName",
+        label: "Enter user name",
+        placeholder: "Enter your user name",
         componentType: "input",
-        type:"name"
+        type:"text"
     },
     {
         name: "email",
