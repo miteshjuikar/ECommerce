@@ -2,6 +2,7 @@ const express =  require('express');
 const cookieParser = require("cookie-parser");
 const cors = require('cors');
 const authRouter = require('./router/auth/authRoutes');
+const adminProductsRouter = require('./router/admin/product-routes');
 
 const { connectToMongoDB } = require('./connection');
 
@@ -34,6 +35,8 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use('/api/auth', authRouter);
+app.use('/api/admin/products', adminProductsRouter);
 
 
 app.listen(PORT, () => console.log(`Server is started on port: ${PORT}`));
+
