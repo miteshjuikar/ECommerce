@@ -1,4 +1,5 @@
 import ProductImageUpload from '@/components/admin-view/image-upload';
+import AdminProductTile from '@/components/admin-view/product-tile';
 import CommonForm from '@/components/common/form';
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
@@ -37,6 +38,13 @@ function AdminProducts() {
   const { toast } = useToast();
 console.log(productList, "productsPage");
 
+function handleDelete(getCurrentProductId) {
+  dispatch(deleteProduct(getCurrentProductId)).then((data) => {
+    if (data?.payload?.success) {
+      dispatch(fetchAllProducts());
+    }
+  });
+}
   function onSubmit(event){
     event.preventDefault();
     dispatch(addNewProduct({
@@ -64,6 +72,23 @@ console.log(productList, "productsPage");
           Add New Product
         </Button>
       </div>
+
+      <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {productList && productList.length > 0
+          ? productList.map((productItem) => (
+              <AdminProductTile
+                key={productItem._id}
+                setFormData={setFormData}
+                setOpenCreateProductsDialog={setOpenCreateProductsDialog}
+                setCurrentEditedId={setCurrentEditedId}
+                product={productItem}
+                handleDelete={handleDelete}
+              />
+            ))
+          : null}
+      </div>
+
+
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
         <Sheet open={openCreateProductsDialog} onOpenChange={() => {
           setOpenCreateProductsDialog(false);

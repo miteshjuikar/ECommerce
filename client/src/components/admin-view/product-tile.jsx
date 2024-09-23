@@ -1,5 +1,6 @@
 import React from 'react'
-import { Card } from '../ui/card'
+import { Card, CardContent, CardFooter } from '../ui/card'
+import { Button } from '../ui/button';
 
 function AdminProductTile({   
     product,
@@ -41,7 +42,6 @@ function AdminProductTile({
                     setFormData(product);
                     }}
                 >
-                    // need to write button functions
                 </Button>
                 <Button onClick={() => handleDelete(product?._id)}>Delete</Button>
             </CardFooter>
