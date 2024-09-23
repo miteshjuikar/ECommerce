@@ -24,7 +24,6 @@ function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
     (state) => state.auth
   );
-console.log(isLoading);
 
   const dispatch = useDispatch();
 

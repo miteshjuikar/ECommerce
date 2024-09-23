@@ -3,8 +3,11 @@ import CommonForm from '@/components/common/form';
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { addProductFormElements } from '@/config';
-import React, { Fragment } from 'react'
+import { useToast } from '@/hooks/use-toast';
+import { addNewProduct, fetchAllProducts } from '@/store/admin/products-slice';
+import React, { Fragment, useEffect } from 'react'
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const initialFormData = {
@@ -28,10 +31,31 @@ function AdminProducts() {
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
 
+  const { productList } = useSelector((state) => state.adminProducts);
+  
+  const dispatch = useDispatch();
+  const { toast } = useToast();
+console.log(productList, "productsPage");
 
   function onSubmit(event){
-
+    event.preventDefault();
+    dispatch(addNewProduct({
+      ...formData,
+      image: uploadedImageUrl
+    })).then((data)=>{
+      dispatch(fetchAllProducts());
+      setOpenCreateProductsDialog(false);
+      setImageFile(null);
+      setFormData(initialFormData);
+      toast({
+        title: "Product add successfully",
+      });
+    })
   }
+  
+  useEffect(()=>{
+    dispatch(fetchAllProducts());
+  },[dispatch]);
 
   return (
     <Fragment>
