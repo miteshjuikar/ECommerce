@@ -6,12 +6,15 @@ const adminProductsRouter = require('./router/admin/product-routes');
 
 const { connectToMongoDB } = require('./connection');
 
+require('dotenv').config();
+const userId = process.env.userId;
+const userPassword = process.env.userPassword;
+
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT.address || 5000;
 
 //MongoDB Connection
-
-connectToMongoDB("mongodb+srv://miteshjuikar:MyMongoDB@mycluster.krravcy.mongodb.net/eShop")
+connectToMongoDB(`mongodb+srv://${userId}:${userPassword}@mycluster.krravcy.mongodb.net/eShop`)
                     .then(console.log("MongoDB connected successfully"))
                     .catch((err)=>console.log(`Error: ${err}`)
                 );

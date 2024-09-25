@@ -59,14 +59,15 @@ const loginUser = async(req,res) => {
             message: "Incorrect password! Please try again"
         })
     }
+    const secretKey = process.env.SECRET_KEY;
     
     const token = jwt.sign({
         id: checkUser._id,
         userName: checkUser.userName,
         email: checkUser.email,
         role: checkUser.role
-        }, "CLIENT_SECRET_KEY",
-        { expiresIn: "60m" }
+        }, secretKey,
+        { expiresIn: "30m" }
     );
 
     res.cookie('token', token,  { httpOnly: true, secure: false }).json({

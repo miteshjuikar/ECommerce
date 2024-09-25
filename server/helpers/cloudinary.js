@@ -25,7 +25,6 @@ const storage = new multer.memoryStorage();
 
 const upload = multer({ storage });
 
-console.log(upload);
 
 
 module.exports = { upload, imageUploadUtil };
