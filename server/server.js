@@ -19,9 +19,8 @@ connectToMongoDB(`mongodb+srv://${userId}:${userPassword}@mycluster.krravcy.mong
                     .catch((err)=>console.log(`Error: ${err}`)
                 );
 
-
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.productionURL || 'https://eshop-frontend-ic5v.onrender.com',
     methods: [ 'GET', 'POST', 'DELETE', 'PUT'],
     allowedHeaders: [
         'Content-Type',
@@ -41,5 +40,6 @@ app.use('/api/auth', authRouter);
 app.use('/api/admin/products', adminProductsRouter);
 
 
-app.listen(PORT, () => console.log(`Server is started on port: ${PORT}`));
+app.listen(PORT, () => console.log(`Server is started on port: ${PORT} 
+Requirest will accept through URL: ${process.env.productionURL}`));
 
