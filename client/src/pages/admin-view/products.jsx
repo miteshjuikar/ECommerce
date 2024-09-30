@@ -77,6 +77,13 @@ function handleDelete(getCurrentProductId) {
     })
   }
   
+  function isFormValid() {
+    return Object.keys(formData)
+      .filter((currentKey) => currentKey !== "averageReview")
+      .map((key) => formData[key] !== "")
+      .every((item) => item);
+  }
+  
   useEffect(()=>{
     dispatch(fetchAllProducts());
   },[dispatch]);
@@ -130,7 +137,7 @@ function handleDelete(getCurrentProductId) {
                 setFormData={setFormData}
                 onSubmit={onSubmit}
                 buttonText={currentEditedId !== null ? "Edit" : "Add"}
-                // isBtnDisabled={!isFormValid()}
+                isBtnDisabled={!isFormValid()}
               />
             </div>
           </SheetContent>
