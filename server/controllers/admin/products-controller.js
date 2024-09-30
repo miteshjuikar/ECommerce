@@ -75,7 +75,9 @@ const editProduct = async(req,res) => {
     try {
         const { id } = req.params;
         const { image, title, description, category, brand, price, salePrice, totalStock, averageReview } = req.body;
-        let findProduct = await Product.findById({ id });
+
+        let findProduct = await Product.findById(id);
+
         if(!findProduct) 
             return res.status(404).json({
                 success: false,
@@ -100,7 +102,7 @@ const editProduct = async(req,res) => {
         });
 
     } catch (error) {
-        req.status(500).json({
+        res.status(500).json({
             success: false,
             message: 'Error Occured'
         })

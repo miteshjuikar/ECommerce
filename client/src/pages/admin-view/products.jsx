@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { addProductFormElements } from '@/config';
 import { useToast } from '@/hooks/use-toast';
-import { addNewProduct, fetchAllProducts } from '@/store/admin/products-slice';
+import { addNewProduct, deleteProduct, editProduct, fetchAllProducts } from '@/store/admin/products-slice';
 import React, { Fragment, useEffect } from 'react'
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,6 @@ function AdminProducts() {
   
   const dispatch = useDispatch();
   const { toast } = useToast();
-console.log(productList, "productsPage");
 
 function handleDelete(getCurrentProductId) {
   dispatch(deleteProduct(getCurrentProductId)).then((data) => {
@@ -47,7 +46,24 @@ function handleDelete(getCurrentProductId) {
 }
   function onSubmit(event){
     event.preventDefault();
-    dispatch(addNewProduct({
+
+    currentEditedId !== null
+  ? dispatch(
+        editProduct({
+          id: currentEditedId,
+          formData,
+        })
+      ).then((data) => {
+        console.log(data, "edit");
+
+        if (data?.payload?.success) {
+          dispatch(fetchAllProducts());
+          setFormData(initialFormData);
+          setOpenCreateProductsDialog(false);
+          setCurrentEditedId(null);
+        }
+      })
+  :  dispatch(addNewProduct({
       ...formData,
       image: uploadedImageUrl
     })).then((data)=>{
