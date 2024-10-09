@@ -4,6 +4,8 @@ const cors = require('cors');
 const authRouter = require('./router/auth/authRoutes');
 const adminProductsRouter = require('./router/admin/product-routes');
 
+const shopProductsRouter = require('./router/shop/product-routes')
+
 const { connectToMongoDB } = require('./connection');
 
 require('dotenv').config();
@@ -40,6 +42,8 @@ app.use(express.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/admin/products', adminProductsRouter);
+
+app.use('/api/shop/products', shopProductsRouter);
 
 
 app.listen(PORT, () => console.log(`Server is started on port: ${PORT} 
