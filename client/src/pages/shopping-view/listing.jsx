@@ -27,6 +27,7 @@ function ShoppingListing() {
   const [sort, setSort] = useState(null);
 
   function handleFilter(getSectionId, getCurrentOption){
+   
     let cpyFilters = { ...filters };
     const indexOfCurrentSection = Object.keys(cpyFilters).indexOf(getSectionId);
 
@@ -34,7 +35,7 @@ function ShoppingListing() {
       cpyFilters = {
         ...cpyFilters,
         [getSectionId]: [getCurrentOption],
-      };u
+      };
     } else {
       const indexOfCurrentOption =
         cpyFilters[getSectionId].indexOf(getCurrentOption);
@@ -45,8 +46,14 @@ function ShoppingListing() {
     }
 
     setFilters(cpyFilters);
-
+    sessionStorage.setItem("filters", JSON.stringify(cpyFilters));
   }
+
+  useEffect(() => {
+    setSort("price-lowtohigh");
+    setFilters(JSON.parse(sessionStorage.getItem("filters")) || {});
+  }, []);
+
   const handleSort = (value) => {
     setSort(value)    
   }
