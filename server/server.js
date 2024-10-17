@@ -21,7 +21,7 @@ connectToMongoDB(`mongodb+srv://${userId}:${userPassword}@mycluster.krravcy.mong
                     .catch((err)=>console.log(`Error: ${err}`)
                 );
 
-const originURL = process.env.productionURL || 'https://eshop-frontend-ic5v.onrender.com';
+const originURL = process.env.productionURL || 'https://eshop-npsv.onrender.com';
 
 app.use(cors({
     origin: originURL,
